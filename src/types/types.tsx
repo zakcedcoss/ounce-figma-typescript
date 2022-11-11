@@ -16,3 +16,16 @@ export interface ProductsType {
   inventory: string;
   img: string;
 }
+
+export interface OptionsType {
+  responsive?: boolean;
+  plugins?: {
+    legend?: {
+      position: string;
+    };
+    title?: {
+      display: boolean;
+      text: string;
+    };
+  };
+}

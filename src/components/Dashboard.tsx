@@ -10,10 +10,11 @@ import {
 import { AiOutlineDown } from "react-icons/ai";
 import { Doughnut, Line } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+
 Chart.register(ArcElement, Tooltip, Legend);
 
 function Dashboard() {
-  const lineOptions = {
+  const lineOptions: any = {
     responsive: true,
     // plugins: {
     //   title: {
@@ -34,7 +35,7 @@ function Dashboard() {
       // },
     },
   };
-  const lineData = {
+  const lineData: any = {
     labels: ["az", "by", "cx", "dw", "e", "f", "g", "h"],
     datasets: [
       {
@@ -45,7 +46,7 @@ function Dashboard() {
       },
     ],
   };
-  const data = {
+  const data: any = {
     maintainAspectRatio: false,
     responsive: false,
     labels: ["az", "by", "cx", "dw"],
