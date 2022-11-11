@@ -22,6 +22,7 @@ function Profiling() {
   const [selectedRow, setSelectedRow] = useState<{ [key: number]: string[] }>(
     []
   );
+  const [selectedRowArray, setSelectedRowArray] = useState<string[]>([]);
   // filters
   const [filterObject, setFilterObject] = useState<{ [key: string]: string }>(
     {}
@@ -382,6 +383,8 @@ function Profiling() {
             filterQuery={filterQuery}
             selectedRow={selectedRow}
             setSelectedRow={setSelectedRow}
+            selectedRowArray={selectedRowArray}
+            setSelectedRowArray={setSelectedRowArray}
           />
         </div>
         <PageFooter>
