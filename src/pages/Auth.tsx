@@ -141,7 +141,7 @@ function Auth() {
           <div
             style={{
               width: 450,
-              marginInline: "auto",
+              margin: "auto",
             }}
           >
             <Card
