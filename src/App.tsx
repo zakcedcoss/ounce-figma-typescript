@@ -1,20 +1,26 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Layout from "./Layout/index";
-import Dashboard from "./components/Dashboard";
-import Profiling from "./components/Profiling/Profiling";
+import { Spin } from "antd";
+import { lazy, Suspense } from "react";
+const Home = lazy(() => import("./pages/Home"));
+const Layout = lazy(() => import("./Layout/index"));
+const Dashboard = lazy(() => import("./components/Dashboard"));
+const Profiling = lazy(() => import("./components/Profiling/Profiling"));
+const Auth = lazy(() => import("./components/Auth"));
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/panel" element={<Layout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="profiling" element={<Profiling />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<Spin size="large" />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth/:auth" element={<Auth />} />
+          <Route path="/panel" element={<Layout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profiling" element={<Profiling />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </div>
   );
 }

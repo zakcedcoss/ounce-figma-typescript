@@ -5,7 +5,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/panel/dashboard");
+    navigate("/auth/login", { replace: true });
   });
 
   return <div className="home">Home Component</div>;

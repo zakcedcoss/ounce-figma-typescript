@@ -7,7 +7,7 @@ import {
 } from "@cedcommerce/ounce-ui";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Table, Avatar, Switch } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 //types
 import { ProductTablePropsType, ProductsType } from "../../types/types";
 
@@ -26,7 +26,7 @@ function ProductTable({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // token
   const TOKEN =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4MTcyMDE5LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNmUxMGIzZjk2NjgzNTQ3YjJlYzg1YiJ9.iiF160u5OWkHZ8qLQzkKDsjytSW8HXaB74ilKW5bVMLqZQ8tvpU676qR1QufbV1NIiQttLATXSyjRmR8mEqaZXsmruNg0hOHb3rBsqHgPWfcpRnLdMo-6Ue1JeaNwLvtPvMx8lVL0nm_8GGtrT1266EfROL0TLIk1NSlnNHyMeauQwYw2J4_1Xae3L8JAOR8V2gHfX9n0efajelGMOnkXo611VQngQ67M5UU2-IyGCCsAMLNVtGa3a5BOt2Y-5CkOEbE6iAreP6hgRLOxJZalIHsh3j-o4he6JORh247QM_Z4FAbozUzVepzA59PuTuYJlXHwsDaw29q3rUPzgXvcA";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4NDk5ODI1LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNzMxMTMyZWIzOTRhMWRlMjM5OTEwYSJ9.iSq5nuY6rsrg20F_s-GSUkOR2ocIQqdPZ1O6o0iHUep_CjlHeNio_6s-hVad1GRT_BwXCrgdWTlJcHaa_ed3lQ4MWAoUQOyE_GBom-CzV6Acxos-2iLkRYjXTamC4Jug0jutozVKv0IXafdhSx2Nk62Iq9pdUU9Bloh6M3ywxPXYMtYU0KMdmALABrHFyhh1wTKsQFdN55uHX2S1Ah0cGL_6_XF007krwgWM9y2zEUsK1wqQ2iv19Eg_KKyqCw9gxlir7vIwEuzNLDSJi5j29DiGlukCQTZhSakUttXZ3q7q8Dalmvy-vW1--6cF3WlWYxApspONqqnYzm6zt6WRCQ";
 
   useEffect(() => {
     // we can keep the token in env variable for more security
