@@ -10,6 +10,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 function Layout() {
   const navigate = useNavigate();
 
+  const handleUserClick = () => {
+    navigate("/auth/login", { replace: true });
+  };
+
   return (
     <div>
       <Topbar
@@ -23,7 +27,12 @@ function Layout() {
             />
 
             <Button iconAlign="left" icon={<FiBell />} type="Outlined" />
-            <Button iconAlign="left" icon={<BiUser />} type="Outlined" />
+            <Button
+              iconAlign="left"
+              icon={<BiUser />}
+              type="Outlined"
+              onClick={handleUserClick}
+            />
           </FlexLayout>
         }
       />

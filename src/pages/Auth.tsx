@@ -36,10 +36,10 @@ function Auth() {
     if (
       Object.keys(inputs).length === 0 ||
       inputs?.fname === "" ||
-      inputs?.email === "" ||
-      inputs?.password === "" ||
       inputs?.lname === "" ||
       inputs?.username === "" ||
+      inputs?.email === "" ||
+      inputs?.password === "" ||
       inputs?.password2 === ""
     ) {
       setErrors({ active: true, message: "Fields should not me empty" });

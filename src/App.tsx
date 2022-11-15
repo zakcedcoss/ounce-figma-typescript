@@ -6,7 +6,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Layout = lazy(() => import("./Layout/index"));
 const Dashboard = lazy(() => import("./components/Dashboard"));
 const Profiling = lazy(() => import("./components/Profiling/Profiling"));
-const Auth = lazy(() => import("./components/Auth"));
+const Auth = lazy(() => import("./pages/Auth"));
 
 function App() {
   return (
