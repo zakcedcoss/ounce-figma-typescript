@@ -5,8 +5,7 @@ import { BiUser } from "react-icons/bi";
 import { BsHouseDoor } from "react-icons/bs";
 import { CgTemplate } from "react-icons/cg";
 import { FaRegHandshake } from "react-icons/fa";
-import { Outlet, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 
 function Layout() {
   const navigate = useNavigate();

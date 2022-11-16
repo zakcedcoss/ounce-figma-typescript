@@ -9,6 +9,7 @@ import {
   Accordion,
 } from "@cedcommerce/ounce-ui";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface HelpCardType {
   title: string;
@@ -82,10 +83,25 @@ function Help() {
           })}
         </FlexLayout>
       </Card>
-      <Card title="Frequently Asked Questions">
+      <Card
+        title="Frequently Asked Questions"
+        action={<Link to="/panel/help/faqs">View all FAQ articles</Link>}
+      >
         {faqQuestions.map((faq, i) => {
           return (
-            <Accordion key={i} boxed icon iconAlign="left" title={faq.ques}>
+            <Accordion
+              active={toggleFaqs[i]}
+              key={i}
+              boxed
+              icon
+              iconAlign="left"
+              title={faq.ques}
+              onClick={() => {
+                const newFaqsToggle: boolean[] = [...toggleFaqs];
+                newFaqsToggle[i] = !newFaqsToggle[i];
+                setToggleFaqs(newFaqsToggle);
+              }}
+            >
               <TextStyles textcolor="light">{faq.ans}</TextStyles>
             </Accordion>
           );

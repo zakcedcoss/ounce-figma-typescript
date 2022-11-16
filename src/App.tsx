@@ -6,6 +6,7 @@ import GeneralTab from "./components/Settings/GeneralTab";
 import AccountTab from "./components/Settings/AccountTab";
 import PassowrdTab from "./components/Settings/PasswordTab";
 import ProductTab from "./components/Settings/ProductTab";
+import Faqs from "./components/Help/Faqs";
 
 const Home = lazy(() => import("./pages/Home"));
 const Layout = lazy(() => import("./Layout/index"));
@@ -36,6 +37,7 @@ function App() {
             </Route>
             <Route path="activites" element={<Activities />} />
             <Route path="help" element={<Help />} />
+            <Route path="help/faqs" element={<Faqs />} />
           </Route>
         </Routes>
       </Suspense>
