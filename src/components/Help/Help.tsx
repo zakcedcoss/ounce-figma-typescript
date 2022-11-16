@@ -97,8 +97,12 @@ function Help() {
               iconAlign="left"
               title={faq.ques}
               onClick={() => {
-                const newFaqsToggle: boolean[] = [...toggleFaqs];
-                newFaqsToggle[i] = !newFaqsToggle[i];
+                const newFaqsToggle: boolean[] = toggleFaqs.map(
+                  (toggle, idx) => {
+                    if (idx === i) return !toggle;
+                    return toggle;
+                  }
+                );
                 setToggleFaqs(newFaqsToggle);
               }}
             >
