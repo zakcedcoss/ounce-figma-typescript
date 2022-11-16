@@ -207,192 +207,194 @@ function Profiling() {
   };
 
   return (
-    <div className="dashboard">
-      <BodyLayout>
-        <PageHeader
-          sticky
-          title="Welcome to Twitter Connected App Profiling"
-          description="Welcome. Here's what you need to know in a nutshell"
-        />
-        <div
-          style={{
-            marginTop: "7rem",
-          }}
-        >
-          <Card>
-            <FlexLayout spacing="extraLoose" halign="fill">
-              <TextStyles type="Heading">Product List</TextStyles>
-              <FlexLayout spacing="loose">
-                <Button type="Primary">Sync With Twitter</Button>
-                <Button type="Outlined">Import From Shopify</Button>
-              </FlexLayout>
-            </FlexLayout>
-          </Card>
-          {tagsArray.length !== 0 && (
-            <Card>
-              <FlexLayout spacing="loose">
-                {tagsArray.map((key: string[], i: number) => {
-                  return (
-                    <Tag
-                      key={i}
-                      destroy={() => {
-                        removeFilter(key[1]);
-                      }}
-                    >
-                      {key[0]}
-                    </Tag>
-                  );
-                })}
-              </FlexLayout>
-            </Card>
-          )}
-          <Card>
-            <FlexLayout halign="fill">
-              <FormElement>
-                <TextField
-                  value={filterObject["title or sku"] || ""}
-                  placeHolder="Search By Title or SKU"
-                  prefix={
+    <BodyLayout>
+      <PageHeader
+        title="Welcome to Twitter Connected App Profiling"
+        description="Welcome. Here's what you need to know in a nutshell"
+      />
+      <Card>
+        <FlexLayout spacing="extraLoose" halign="fill">
+          <TextStyles type="Heading">Product List</TextStyles>
+          <FlexLayout spacing="loose">
+            <Button type="Primary">Sync With Twitter</Button>
+            <Button type="Outlined">Import From Shopify</Button>
+          </FlexLayout>
+        </FlexLayout>
+      </Card>
+      {tagsArray.length !== 0 && (
+        <Card>
+          <FlexLayout spacing="loose">
+            {tagsArray.map((key: string[], i: number) => {
+              return (
+                <Tag
+                  key={i}
+                  destroy={() => {
+                    removeFilter(key[1]);
+                  }}
+                >
+                  {key[0]}
+                </Tag>
+              );
+            })}
+          </FlexLayout>
+        </Card>
+      )}
+      <Card>
+        <FlexLayout halign="fill">
+          <FormElement>
+            <TextField
+              value={filterObject["title or sku"] || ""}
+              placeHolder="Search By Title or SKU"
+              prefix={
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="#c3c3c3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" x2="16.65" y1="21" y2="16.65" />
+                </svg>
+              }
+              onChange={(e: string) => handleSearchChange(e)}
+              onEnter={handleApply}
+            />
+          </FormElement>
+
+          <FlexLayout halign="fill" spacing="loose">
+            <Filter
+              button="Filter"
+              icon={<FiFilter />}
+              filters={filterFields.map((field: FilterFieldsType) => {
+                const { filter, title, options } = field;
+                return {
+                  children: (
+                    <>
+                      <Select
+                        placeholder={`Select ${title}`}
+                        options={options}
+                        value={filterObject[filter]}
+                        onChange={(e: string) => handleChange(e, field)}
+                        selectHelp={
+                          <Button
+                            type="Plain"
+                            onClick={() => {
+                              const { [filter]: _, ...rest } = filterObject;
+                              setFilterObject(rest);
+                            }}
+                          >
+                            Clear
+                          </Button>
+                        }
+                      />
+                    </>
+                  ),
+                  name: title,
+                };
+              })}
+              heading="Filter By"
+              type="Outlined"
+              onApply={handleApply}
+              resetFilter={handleResetFilter}
+              disableApply={
+                Object.keys(filterObject).length === 0 ? true : false
+              }
+              disableReset={
+                Object.keys(filterObject).length === 0 ? true : false
+              }
+            />
+
+            <ButtonDropdown
+              type="Outlined"
+              list={[
+                {
+                  icon: (
                     <svg
                       fill="none"
                       height="20"
-                      stroke="#c3c3c3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
+                      viewBox="0 0 30 30"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <circle cx="11" cy="11" r="8" />
-                      <line x1="21" x2="16.65" y1="21" y2="16.65" />
+                      <path
+                        d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
+                        stroke="#707070"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="3"
+                      />
                     </svg>
-                  }
-                  onChange={(e: string) => handleSearchChange(e)}
-                  onEnter={handleApply}
-                />
-              </FormElement>
-
-              <FlexLayout halign="fill" spacing="loose">
-                <Filter
-                  button="Filter"
-                  icon={<FiFilter />}
-                  filters={filterFields.map((field: FilterFieldsType) => {
-                    const { filter, title, options } = field;
-                    return {
-                      children: (
-                        <>
-                          <Select
-                            placeholder={`Select ${title}`}
-                            options={options}
-                            value={filterObject[filter]}
-                            onChange={(e: string) => handleChange(e, field)}
-                          />
-                        </>
-                      ),
-                      name: title,
-                    };
-                  })}
-                  heading="Filter By"
-                  type="Outlined"
-                  onApply={handleApply}
-                  resetFilter={handleResetFilter}
-                  disableApply={
-                    Object.keys(filterObject).length === 0 ? true : false
-                  }
-                  disableReset={
-                    Object.keys(filterObject).length === 0 ? true : false
-                  }
-                />
-
-                <ButtonDropdown
-                  type="Outlined"
-                  list={[
-                    {
-                      icon: (
-                        <svg
-                          fill="none"
-                          height="20"
-                          viewBox="0 0 30 30"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
-                            stroke="#707070"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                          />
-                        </svg>
-                      ),
-                      label: "Dropdown Item 1",
-                      onClick: function noRefCheck() {},
-                    },
-                    {
-                      icon: (
-                        <svg
-                          fill="none"
-                          height="20"
-                          viewBox="0 0 30 30"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
-                            stroke="#707070"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                          />
-                        </svg>
-                      ),
-                      label: "Dropdown Item 2",
-                      onClick: function noRefCheck() {},
-                    },
-                    {
-                      icon: (
-                        <svg
-                          fill="none"
-                          height="20"
-                          viewBox="0 0 30 30"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
-                            stroke="#707070"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                          />
-                        </svg>
-                      ),
-                      label: "Dropdown Item 3",
-                      onClick: function noRefCheck() {},
-                    },
-                  ]}
-                  title="More Actions"
-                />
-              </FlexLayout>
-            </FlexLayout>
-          </Card>
-          <ProductTable
-            page={page}
-            setPage={setPage}
-            filterQuery={filterQuery}
-            selectedRow={selectedRow}
-            setSelectedRow={setSelectedRow}
-            selectedRowArray={selectedRowArray}
-            setSelectedRowArray={setSelectedRowArray}
-          />
-        </div>
-        <PageFooter>
-          <TextStyles>Cedcommerce @ 2022</TextStyles>
-          <TextStyles>Coded by Zeeshan A. Khan</TextStyles>
-        </PageFooter>
-      </BodyLayout>
-    </div>
+                  ),
+                  label: "Dropdown Item 1",
+                  onClick: function noRefCheck() {},
+                },
+                {
+                  icon: (
+                    <svg
+                      fill="none"
+                      height="20"
+                      viewBox="0 0 30 30"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
+                        stroke="#707070"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="3"
+                      />
+                    </svg>
+                  ),
+                  label: "Dropdown Item 2",
+                  onClick: function noRefCheck() {},
+                },
+                {
+                  icon: (
+                    <svg
+                      fill="none"
+                      height="20"
+                      viewBox="0 0 30 30"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
+                        stroke="#707070"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="3"
+                      />
+                    </svg>
+                  ),
+                  label: "Dropdown Item 3",
+                  onClick: function noRefCheck() {},
+                },
+              ]}
+              title="More Actions"
+            />
+          </FlexLayout>
+        </FlexLayout>
+      </Card>
+      <ProductTable
+        page={page}
+        setPage={setPage}
+        filterQuery={filterQuery}
+        selectedRow={selectedRow}
+        setSelectedRow={setSelectedRow}
+        selectedRowArray={selectedRowArray}
+        setSelectedRowArray={setSelectedRowArray}
+      />
+      <PageFooter>
+        <TextStyles>Cedcommerce @ 2022</TextStyles>
+        <TextStyles>Coded by Zeeshan A. Khan</TextStyles>
+      </PageFooter>
+    </BodyLayout>
   );
 }
 

@@ -6,6 +6,7 @@ import { BsHouseDoor } from "react-icons/bs";
 import { CgTemplate } from "react-icons/cg";
 import { FaRegHandshake } from "react-icons/fa";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Layout() {
   const navigate = useNavigate();
@@ -25,8 +26,9 @@ function Layout() {
               type="Outlined"
               content="Shopify"
             />
-
-            <Button iconAlign="left" icon={<FiBell />} type="Outlined" />
+            <Link to="/panel/activites">
+              <Button iconAlign="left" icon={<FiBell />} type="Outlined" />
+            </Link>
             <Button
               iconAlign="left"
               icon={<BiUser />}

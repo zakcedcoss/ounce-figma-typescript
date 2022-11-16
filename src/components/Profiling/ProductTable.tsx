@@ -26,7 +26,7 @@ function ProductTable({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // token
   const TOKEN =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4NDk5ODI1LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNzMxMTMyZWIzOTRhMWRlMjM5OTEwYSJ9.iSq5nuY6rsrg20F_s-GSUkOR2ocIQqdPZ1O6o0iHUep_CjlHeNio_6s-hVad1GRT_BwXCrgdWTlJcHaa_ed3lQ4MWAoUQOyE_GBom-CzV6Acxos-2iLkRYjXTamC4Jug0jutozVKv0IXafdhSx2Nk62Iq9pdUU9Bloh6M3ywxPXYMtYU0KMdmALABrHFyhh1wTKsQFdN55uHX2S1Ah0cGL_6_XF007krwgWM9y2zEUsK1wqQ2iv19Eg_KKyqCw9gxlir7vIwEuzNLDSJi5j29DiGlukCQTZhSakUttXZ3q7q8Dalmvy-vW1--6cF3WlWYxApspONqqnYzm6zt6WRCQ";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4NTg0ODQ3LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNzQ1ZDRmOGZlNTE0NmM2YjQwODkwZiJ9.H1wqsXWoFPcTxPWdIbMoYwM1m4X0PIo-ZkUm6WbrS-Rm2BTtnQn75A86foffYpjVLO-ez7BT7TLwCZclBGyUlv2U6qrPyaNagKFz3IP6ps-9YLVbgUb_sSl7FrnVQha5GzhuTLVTSZyXGGu7YITIg1UZ4he8OP69r1LSfBKWBgM44HMhs6IJhbvYvQfvyfW_88SyhR6kuy-ckSsxsoS4JzDYjujw7xhnywZaBsX-KwRXH0RSLV6LRBJIt4vfYWEiqGIHMd7ccUmLPlj3H7sXlCC5yWnZLYTQ0CDNZ9PUMMbdy04AO6kp2EWdMhF2IuAErrKKwNIcfvlXpEXkWCzX-Q";
 
   useEffect(() => {
     // we can keep the token in env variable for more security
@@ -190,7 +190,7 @@ function ProductTable({
           <Skeleton line={3} rounded="0%" type="line" />
         )}
       </Card>
-      {products?.length !== 0 && (
+      {products && products?.length !== 0 && (
         <Card>
           <Pagination
             countPerPage={count}
