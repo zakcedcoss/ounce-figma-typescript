@@ -3,9 +3,7 @@ import {
   Button,
   FlexLayout,
   NewSidebar,
-  Accordion,
   TextStyles,
-  Card,
   ActionList,
 } from "@cedcommerce/ounce-ui";
 import {
