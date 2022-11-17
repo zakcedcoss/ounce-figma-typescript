@@ -7,6 +7,7 @@ import AccountTab from "./components/Settings/AccountTab";
 import PassowrdTab from "./components/Settings/PasswordTab";
 import ProductTab from "./components/Settings/ProductTab";
 import Faqs from "./components/Help/Faqs";
+import ErrorPage from "./pages/ErrorPage";
 
 const Home = lazy(() => import("./pages/Home"));
 const Layout = lazy(() => import("./Layout/index"));
@@ -39,6 +40,7 @@ function App() {
             <Route path="help" element={<Help />} />
             <Route path="help/faqs" element={<Faqs />} />
           </Route>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </div>

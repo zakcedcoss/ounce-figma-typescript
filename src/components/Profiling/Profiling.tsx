@@ -12,10 +12,12 @@ import {
   ButtonDropdown,
   FormElement,
   Select,
+  ActionList,
 } from "@cedcommerce/ounce-ui";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import ProductTable from "./ProductTable";
+import { AiOutlineDown } from "react-icons/ai";
 
 function Profiling() {
   const [page, setPage] = useState<number>(1);
@@ -23,6 +25,9 @@ function Profiling() {
     []
   );
   const [selectedRowArray, setSelectedRowArray] = useState<string[]>([]);
+  // action list
+  const [sortByActionOpen, setSortByActionOpen] = useState<boolean>(false);
+  const [sortBy, setSortBy] = useState<string>("Select");
   // filters
   const [filterObject, setFilterObject] = useState<{ [key: string]: string }>(
     {}
@@ -308,75 +313,38 @@ function Profiling() {
                 Object.keys(filterObject).length === 0 ? true : false
               }
             />
-
-            <ButtonDropdown
-              type="Outlined"
-              list={[
+            <ActionList
+              open={sortByActionOpen}
+              activator={
+                <Button
+                  icon={<TextStyles content="Sort By:" />}
+                  iconAlign="left"
+                  onClick={() => setSortByActionOpen(!sortByActionOpen)}
+                  type="Outlined"
+                >
+                  <TextStyles icon={<AiOutlineDown />} content={sortBy} />
+                </Button>
+              }
+              direction="left"
+              onClose={function noRefCheck() {}}
+              sections={[
                 {
-                  icon: (
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 30 30"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
-                        stroke="#707070"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="3"
-                      />
-                    </svg>
-                  ),
-                  label: "Dropdown Item 1",
-                  onClick: function noRefCheck() {},
-                },
-                {
-                  icon: (
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 30 30"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
-                        stroke="#707070"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="3"
-                      />
-                    </svg>
-                  ),
-                  label: "Dropdown Item 2",
-                  onClick: function noRefCheck() {},
-                },
-                {
-                  icon: (
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 30 30"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.5 15H22.5L18.75 26.25L11.25 3.75L7.5 15H2.5"
-                        stroke="#707070"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="3"
-                      />
-                    </svg>
-                  ),
-                  label: "Dropdown Item 3",
-                  onClick: function noRefCheck() {},
+                  items: [
+                    {
+                      content: "Title A-Z",
+                      onClick: () => {
+                        setSortBy("Title A-Z");
+                      },
+                    },
+                    {
+                      content: "Title Z-A",
+                      onClick: () => {
+                        setSortBy("Title Z-A");
+                      },
+                    },
+                  ],
                 },
               ]}
-              title="More Actions"
             />
           </FlexLayout>
         </FlexLayout>
