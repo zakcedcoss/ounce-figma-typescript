@@ -26,7 +26,7 @@ function ProductTable({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // token
   const TOKEN =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4NzU2OTM3LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNzZmZDg5M2Q5NWNkMGY5MjVjYjU5YiJ9.esVytAi5D3-xDo-9npySX4HaYsPwYMupOvAPNvj0Ij77yiFovHBFoODZiNHyZnHCk5p9CMDqp0PTSrfbssFW0O3DnLJFj7fPvbZJsHUR2k_JAZ09wojfm9SWSJw7mQEEKfvcyk1SYsKss5WpBw24TU1RnAGwYMEUNW8OJ78KLL8Q0Z2eIHbb6e6mktFCgU5j2ojST_2jpwInUhUhVArKarNd4ww38n-8kZkcsMGCdCNDuuK8ci5_6gBTv2z6d7Xz5iP1FvlCkG7zzqMSAycEYGF7uqE2aFd5ebYQ-LY1JVn0AHQ7uoF5jzS60QznxjwLAYEnvofREW6ykDSEmHZVVw";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4Nzc4NjU5LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNzc1MjYzYzhiMTYyNzgxYzVhYzA1NSJ9.N2ac0YC2_zwnIjiUVULPEj_KE6JPXJ5gU5V0QGRg7FzPNsR3bOGsaISftxVjCc0_5Kf6UCFowoyJYui_J6sqvtOYq7fiQEckNg-CXYmlyrBUW7_eowfGduCTDX-ojY4k7jSXRuoMrtC5dp6oDIpPErnwa_MdSi4cCve1C_rrV69LeoM4_2o4MLDcrAFXAgqxDtmObsQ48aTEJYiulakrybkS5HZpnI6NGvF5mdHYEYzpRLcFQyZXyN77dlnnVjtp3Z8SYxn11lFU_BaQshw0aiP-rRVJ7bAyiyd7ayI3RkfKDNwRufo2uqJ4luiIvPeR46JZ2MapDYTvTt_Ao1WboQ";
 
   useEffect(() => {
     // we can keep the token in env variable for more security
@@ -80,7 +80,7 @@ function ProductTable({
 
   useEffect(() => {
     fetch(
-      `https://multi-account.sellernext.com/home/public/connector/product/getProductsCount?activePage=1&count=10&productOnly=true&target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9`,
+      `https://multi-account.sellernext.com/home/public/connector/product/getProductsCount?activePage=1&count=10&productOnly=true&target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9${filterQuery}`,
       {
         headers: {
           appCode:
@@ -97,7 +97,7 @@ function ProductTable({
       .then((resp) => resp.json())
       .then((data) => setTotalCount(data.data?.count))
       .catch((err) => console.log(err));
-  }, []);
+  }, [filterQuery]);
 
   useEffect(() => {
     const newSelectedRowArray: string[] = Object.keys(selectedRow).reduce(
@@ -112,7 +112,7 @@ function ProductTable({
   return (
     <div>
       <Card>
-        {!isLoading && products?.length !== 0 ? (
+        {!isLoading && products ? (
           <Table
             columns={[
               {
@@ -234,8 +234,8 @@ function ProductTable({
                 value: "100",
               },
             ]}
-            totalPages={Math.ceil(totalCount / count) || 1}
-            totalitem={totalCount || 0}
+            totalPages={Math.ceil(totalCount / count)}
+            totalitem={totalCount === 0 ? 1 : totalCount}
           />
         </Card>
       )}
