@@ -8,6 +8,7 @@ import PassowrdTab from "./components/Settings/PasswordTab";
 import ProductTab from "./components/Settings/ProductTab";
 import Faqs from "./components/Help/Faqs";
 import ErrorPage from "./pages/ErrorPage";
+import NewAccount from "./components/Settings/NewAccount";
 
 const Home = lazy(() => import("./pages/Home"));
 const Layout = lazy(() => import("./Layout/index"));
@@ -36,6 +37,7 @@ function App() {
               <Route path="product" element={<ProductTab />} />
               <Route path="password" element={<PassowrdTab />} />
             </Route>
+            <Route path="settings/new-account" element={<NewAccount />} />
             <Route path="activites" element={<Activities />} />
             <Route path="help" element={<Help />} />
             <Route path="help/faqs" element={<Faqs />} />
