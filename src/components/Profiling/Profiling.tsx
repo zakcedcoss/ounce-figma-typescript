@@ -9,6 +9,7 @@ import {
   TextField,
   Filter,
   Tag,
+  ButtonDropdown,
   FormElement,
   Select,
   ActionList,
@@ -26,7 +27,7 @@ function Profiling() {
   const [selectedRowArray, setSelectedRowArray] = useState<string[]>([]);
   // action list
   const [sortByActionOpen, setSortByActionOpen] = useState<boolean>(false);
-  const [sortBy, setSortBy] = useState<string>("Select");
+  const [sortBy, setSortBy] = useState<string>("");
   // filters
   const [filterObject, setFilterObject] = useState<{ [key: string]: string }>(
     {}
@@ -46,7 +47,7 @@ function Profiling() {
   const filterFields: FilterFieldsType[] = [
     {
       title: "Product Status",
-      filter: "item.status-1",
+      filter: "items.status-1",
       options: [
         {
           label: "Active",
@@ -67,10 +68,6 @@ function Profiling() {
         {
           label: "Uploaded",
           value: "Uploaded",
-        },
-        {
-          label: "Available for Offer",
-          value: "Available for Offer",
         },
       ],
     },
