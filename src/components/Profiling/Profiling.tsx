@@ -14,7 +14,7 @@ import {
   ActionList,
 } from "@cedcommerce/ounce-ui";
 import { FiFilter } from "react-icons/fi";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ProductTable from "./ProductTable";
 import { AiOutlineDown } from "react-icons/ai";
 
@@ -23,7 +23,6 @@ function Profiling() {
   const [selectedRow, setSelectedRow] = useState<{ [key: number]: string[] }>(
     []
   );
-  const [selectedRowArray, setSelectedRowArray] = useState<string[]>([]);
   // action list
   const [sortByActionOpen, setSortByActionOpen] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<string>("");
@@ -31,6 +30,7 @@ function Profiling() {
   const [filterObject, setFilterObject] = useState<{ [key: string]: string }>(
     {}
   );
+
   const [filterQuery, setFilterQuery] = useState<string>("");
   const [tagsArray, setTagsArray] = useState<string[][]>([]);
   // types
@@ -206,6 +206,9 @@ function Profiling() {
     setFilterObject({ ...filterObject, "title or sku": value });
   };
 
+  const setPageMemo = useCallback(setPage, [setPage]);
+  const setSelectedRowMemo = useCallback(setSelectedRow, [setSelectedRow]);
+
   return (
     <BodyLayout>
       <PageHeader
@@ -346,12 +349,10 @@ function Profiling() {
       </Card>
       <ProductTable
         page={page}
-        setPage={setPage}
+        setPage={setPageMemo}
         filterQuery={filterQuery}
         selectedRow={selectedRow}
-        setSelectedRow={setSelectedRow}
-        selectedRowArray={selectedRowArray}
-        setSelectedRowArray={setSelectedRowArray}
+        setSelectedRow={setSelectedRowMemo}
       />
       <PageFooter>
         <TextStyles>Cedcommerce @ 2022</TextStyles>

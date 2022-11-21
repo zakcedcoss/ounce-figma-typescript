@@ -17,8 +17,6 @@ function ProductTable({
   filterQuery,
   selectedRow,
   setSelectedRow,
-  selectedRowArray,
-  setSelectedRowArray,
 }: ProductTablePropsType) {
   const [count, setCount] = useState<number>(10);
   const [totalCount, setTotalCount] = useState<number>(1);
@@ -26,7 +24,7 @@ function ProductTable({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // token
   const TOKEN =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY4Nzc4NjU5LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzNzc1MjYzYzhiMTYyNzgxYzVhYzA1NSJ9.N2ac0YC2_zwnIjiUVULPEj_KE6JPXJ5gU5V0QGRg7FzPNsR3bOGsaISftxVjCc0_5Kf6UCFowoyJYui_J6sqvtOYq7fiQEckNg-CXYmlyrBUW7_eowfGduCTDX-ojY4k7jSXRuoMrtC5dp6oDIpPErnwa_MdSi4cCve1C_rrV69LeoM4_2o4MLDcrAFXAgqxDtmObsQ48aTEJYiulakrybkS5HZpnI6NGvF5mdHYEYzpRLcFQyZXyN77dlnnVjtp3Z8SYxn11lFU_BaQshw0aiP-rRVJ7bAyiyd7ayI3RkfKDNwRufo2uqJ4luiIvPeR46JZ2MapDYTvTt_Ao1WboQ";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY5MDIxMTg4LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzN2IwNWM0ZGRmNjFmM2RkNzBmNThhNSJ9.KcWiij-R0UXNT4622RymORzK2JwShdQS4m_kmPG66CRtfmjcnJEpFzM5WaV7De3vrEFgd9GjksrPSJWR-MwMWIzXQAqB1ddXFPKqAgnoshPufZHWpTLoTD2IhN_JJud-Rfp1MPQpy7gPuonFBOvWESvyfLGYBAfzZEorL4rLKFzTbBHGvX0fFwy6tvrSDt54RgRBGcJ0Ysbk5nj4Oj2zYbeDRcOUUPaaJRmj1OkIYPAiJu_Xf-RrQ0VAxJO6gqxaHzRCATd8oUfXGFb1F0zJnF5dw9t_GYLEh64KsApnhWR0mqowUj7frjNmFkzZ4IEv5FAW55odcqtau3RmQ1sL6g";
 
   useEffect(() => {
     // we can keep the token in env variable for more security
@@ -99,16 +97,6 @@ function ProductTable({
       .catch((err) => console.log(err));
   }, [filterQuery]);
 
-  useEffect(() => {
-    const newSelectedRowArray: string[] = Object.keys(selectedRow).reduce(
-      (acc: string[], row: string) => {
-        return [...acc, ...selectedRow[+row]];
-      },
-      []
-    );
-    setSelectedRowArray(newSelectedRowArray);
-  }, [selectedRow]);
-
   return (
     <div>
       <Card>
@@ -178,7 +166,12 @@ function ProductTable({
             dataSource={products}
             pagination={false}
             rowSelection={{
-              selectedRowKeys: selectedRowArray,
+              selectedRowKeys: Object.keys(selectedRow).reduce(
+                (acc: string[], row: string) => {
+                  return [...acc, ...selectedRow[+row]];
+                },
+                []
+              ),
               onChange: (e) => {
                 setSelectedRow((oldSelectedRow: any) => {
                   return { ...oldSelectedRow, [page]: e };

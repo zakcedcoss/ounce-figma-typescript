@@ -6,8 +6,6 @@ export interface ProductTablePropsType {
   filterQuery: string;
   selectedRow: { [key: number]: string[] };
   setSelectedRow: Dispatch<SetStateAction<{ [key: number]: string[] }>>;
-  selectedRowArray: string[];
-  setSelectedRowArray: Dispatch<SetStateAction<string[]>>;
 }
 
 export interface ProductsType {
