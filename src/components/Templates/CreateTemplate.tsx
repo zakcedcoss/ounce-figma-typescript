@@ -250,6 +250,9 @@ function CreateTemplate() {
                   </Card>
                 </FlexLayout>
               </Card>
+              <Card title="This component will be made later">
+                This component will be made later
+              </Card>
             </FlexLayout>
           </Card>
         </Tabs>
