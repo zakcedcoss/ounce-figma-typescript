@@ -9,6 +9,7 @@ import ProductTab from "./components/Settings/ProductTab";
 import Faqs from "./components/Help/Faqs";
 import ErrorPage from "./pages/ErrorPage";
 import NewAccount from "./components/Settings/NewAccount";
+import CreateTemplate from "./components/Templates/CreateTemplate";
 
 const Home = lazy(() => import("./pages/Home"));
 const Layout = lazy(() => import("./Layout/index"));
@@ -31,6 +32,10 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profiling" element={<Profiling />} />
             <Route path="templates" element={<Templates />} />
+            <Route
+              path="templates/create-templates"
+              element={<CreateTemplate />}
+            />
             <Route path="settings" element={<Settings />}>
               <Route path="general" element={<GeneralTab />} />
               <Route path="account" element={<AccountTab />} />

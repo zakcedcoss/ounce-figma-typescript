@@ -7,7 +7,10 @@ import {
   Tabs,
 } from "@cedcommerce/ounce-ui";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Templates() {
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("default");
 
   return (
@@ -55,6 +58,7 @@ function Templates() {
                 primaryAction={{
                   content: "+ Add New Template",
                   type: "Primary",
+                  onClick: () => navigate("/panel/templates/create-templates"),
                 }}
               >
                 Customized templates allow you to create a template as per your
