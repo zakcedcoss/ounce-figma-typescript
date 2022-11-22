@@ -23,11 +23,11 @@ function ProductTable({
   const [products, setProducts] = useState<ProductsType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // token
+  // we can keep the token in env variable for more security
   const TOKEN =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjM2MzcyZDgxODZlNjUzOWVkMDU5NmMyIiwicm9sZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjY5MDIxMTg4LCJpc3MiOiJodHRwczpcL1wvYXBwcy5jZWRjb21tZXJjZS5jb20iLCJ0b2tlbl9pZCI6IjYzN2IwNWM0ZGRmNjFmM2RkNzBmNThhNSJ9.KcWiij-R0UXNT4622RymORzK2JwShdQS4m_kmPG66CRtfmjcnJEpFzM5WaV7De3vrEFgd9GjksrPSJWR-MwMWIzXQAqB1ddXFPKqAgnoshPufZHWpTLoTD2IhN_JJud-Rfp1MPQpy7gPuonFBOvWESvyfLGYBAfzZEorL4rLKFzTbBHGvX0fFwy6tvrSDt54RgRBGcJ0Ysbk5nj4Oj2zYbeDRcOUUPaaJRmj1OkIYPAiJu_Xf-RrQ0VAxJO6gqxaHzRCATd8oUfXGFb1F0zJnF5dw9t_GYLEh64KsApnhWR0mqowUj7frjNmFkzZ4IEv5FAW55odcqtau3RmQ1sL6g";
 
   useEffect(() => {
-    // we can keep the token in env variable for more security
     setIsLoading(true);
     fetch(
       `https://multi-account.sellernext.com/home/public/connector/product/getRefineProducts?activePage=${page}&count=${count}&productOnly=true${filterQuery}`,
