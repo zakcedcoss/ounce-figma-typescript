@@ -151,6 +151,9 @@ function CreateTemplate() {
                     setCategorySelection(e);
                   }}
                 />
+                <TextStyles>
+                  This component functionality will be made later
+                </TextStyles>
               </Card>
 
               <Card
