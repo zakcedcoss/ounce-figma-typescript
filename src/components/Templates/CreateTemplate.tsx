@@ -15,15 +15,20 @@ import {
 } from "@cedcommerce/ounce-ui";
 import { useEffect, useState } from "react";
 
+interface OptionsType {
+  label: string;
+  options: any;
+}
+
 function CreateTemplate() {
-  const requiredAttribOptions: { label: string; options: any }[] = [
+  const requiredAttribOptions: OptionsType[] = [
     { label: "Condition", options: [] },
     { label: "Gender", options: [] },
     { label: "Age Group", options: [] },
     { label: "Description", options: [] },
     { label: "Brand", options: [] },
   ];
-  const optionalAttribOptions: { label: string; options: any }[] = [
+  const optionalAttribOptions: OptionsType[] = [
     { label: "Color", options: [] },
     { label: "Size", options: [] },
   ];
@@ -159,7 +164,7 @@ function CreateTemplate() {
                     <TextStyles>Shopify attributes</TextStyles>
                   </FlexLayout>
                 </Card>
-                {requiredAttribOptions.map((opt: any) => {
+                {requiredAttribOptions.map((opt: OptionsType) => {
                   return (
                     <Card cardType="Bordered">
                       <FlexLayout
@@ -181,7 +186,7 @@ function CreateTemplate() {
                 title="Optional Attributes"
                 subTitle="This is an optional set of attributes that you may or may not map as per your requirements."
               >
-                {optionalAttribOptions.map((opt: any) => {
+                {optionalAttribOptions.map((opt: OptionsType) => {
                   return (
                     <Card cardType="Bordered">
                       <FlexLayout
