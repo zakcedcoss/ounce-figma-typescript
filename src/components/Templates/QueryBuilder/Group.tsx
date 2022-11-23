@@ -1,4 +1,4 @@
-import { Button, Card } from "@cedcommerce/ounce-ui";
+import { Button, Card, FlexLayout } from "@cedcommerce/ounce-ui";
 import { useCallback, useEffect, useState } from "react";
 import { GroupProps, RowArrayType } from "../../../types/types";
 import Row from "./Row";
@@ -27,6 +27,12 @@ function Group({ groupId, setGroupArrayMemo, nGroups }: GroupProps) {
     });
   };
 
+  const handleDeleteGroup = () => {
+    setGroupArrayMemo((prev) => {
+      return prev.filter((grp) => grp.id !== groupId);
+    });
+  };
+
   const setRowArrayMemo = useCallback(setRowArray, []);
 
   useEffect(() => {
@@ -40,9 +46,18 @@ function Group({ groupId, setGroupArrayMemo, nGroups }: GroupProps) {
 
   return (
     <Card cardType="Bordered">
-      <Button type="Plain" onClick={handleAddRow}>
-        + Add Row
-      </Button>
+      <Card cardType="Bordered">
+        <FlexLayout halign="fill">
+          {nGroups > 1 && (
+            <Button type="DangerPlain" onClick={handleDeleteGroup}>
+              Delete Group
+            </Button>
+          )}
+          <Button type="Plain" onClick={handleAddRow}>
+            + Add Row
+          </Button>
+        </FlexLayout>
+      </Card>
       {rowArray.map((row) => {
         return (
           <Row
