@@ -17,6 +17,12 @@ export interface ProductsType {
   img: string;
 }
 
+export interface RowType {
+  first: string;
+  second: string;
+  third: string;
+}
+
 export interface OptionsType {
   responsive?: boolean;
   plugins?: {
@@ -28,4 +34,28 @@ export interface OptionsType {
       text: string;
     };
   };
+}
+
+export interface RowArrayType {
+  id: number;
+  first: string;
+  second: string;
+  third: string;
+}
+
+export interface RowProps {
+  rowId: number;
+  nRows: number;
+  setRowArrayMemo: Dispatch<SetStateAction<RowArrayType[]>>;
+}
+
+export interface GroupArrayType {
+  id: number;
+  rowsArray: RowArrayType[];
+}
+
+export interface GroupProps {
+  groupId: number;
+  nGroups: number;
+  setGroupArrayMemo: Dispatch<SetStateAction<GroupArrayType[]>>;
 }
