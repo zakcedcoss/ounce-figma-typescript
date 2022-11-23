@@ -77,7 +77,6 @@ function Row({ rowId, setRowArrayMemo, nRows }: RowProps) {
           }}
         />
       </FlexLayout>
-      <TextStyles>{rowId}</TextStyles>
       {nRows > 1 && (
         <Button type="DangerPlain" onClick={handleDeleteRow}>
           Delete Row
