@@ -59,3 +59,11 @@ export interface GroupProps {
   nGroups: number;
   setGroupArrayMemo: Dispatch<SetStateAction<GroupArrayType[]>>;
 }
+
+export interface CategoryType {
+  label: string;
+  value: string;
+  hasChildren: boolean;
+  nextLevel: string;
+  path: string;
+}
