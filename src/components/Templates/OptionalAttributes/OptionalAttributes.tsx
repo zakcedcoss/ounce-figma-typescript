@@ -44,7 +44,6 @@ function OptionalAttributes() {
     });
   };
 
-  // console.log(reqAttribOutput, "ddsdsdsdsdsds");
   const handleOptionChange = (e: string, _: any, idx: any) => {
     setReqAttribOutput((prev) => {
       return prev.map((opt, i) => {
