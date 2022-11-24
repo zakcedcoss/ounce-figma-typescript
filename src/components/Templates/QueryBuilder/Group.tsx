@@ -45,7 +45,7 @@ function Group({ groupId, setGroupArrayMemo, nGroups }: GroupProps) {
   }, [rowArray]);
 
   return (
-    <Card cardType="Bordered">
+    <>
       <Card cardType="Bordered">
         <FlexLayout halign="fill">
           {nGroups > 1 && (
@@ -68,7 +68,7 @@ function Group({ groupId, setGroupArrayMemo, nGroups }: GroupProps) {
           />
         );
       })}
-    </Card>
+    </>
   );
 }
 

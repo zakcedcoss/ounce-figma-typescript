@@ -1,6 +1,5 @@
 import { Select } from "@cedcommerce/ounce-ui";
-import { useEffect, useState } from "react";
-import { TOKEN } from "../../../Environments";
+import { useState } from "react";
 import useNextLevelCategory from "../../../hooks/useNextLevelCategory";
 import { CategoryType } from "../../../types/types";
 

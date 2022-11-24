@@ -67,3 +67,8 @@ export interface CategoryType {
   nextLevel: string;
   path: string;
 }
+
+export interface OptionalOptionType {
+  label: string;
+  options: any;
+}

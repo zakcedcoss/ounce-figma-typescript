@@ -57,28 +57,26 @@ function QueryBuilder() {
   }, [groupArray]);
 
   return (
-    <Card cardType="Bordered">
-      <FlexLayout spacing="loose" direction="vertical">
-        <Card>{query && <Tag>{query}</Tag>}</Card>
+    <FlexLayout spacing="loose" direction="vertical">
+      <Card>{query && <Tag>{query}</Tag>}</Card>
 
-        {groupArray.map((group) => {
-          return (
-            <Group
-              key={group.id}
-              groupId={group.id}
-              setGroupArrayMemo={setGroupArrayMemo}
-              nGroups={groupArray.length}
-            />
-          );
-        })}
-        <FlexLayout spacing="loose">
-          <Button type="Outlined" onClick={handleAddGroup}>
-            Add Group
-          </Button>
-          <Button type="Outlined">Run Query</Button>
-        </FlexLayout>
+      {groupArray.map((group) => {
+        return (
+          <Group
+            key={group.id}
+            groupId={group.id}
+            setGroupArrayMemo={setGroupArrayMemo}
+            nGroups={groupArray.length}
+          />
+        );
+      })}
+      <FlexLayout spacing="loose">
+        <Button type="Outlined" onClick={handleAddGroup}>
+          Add Group
+        </Button>
+        <Button type="Outlined">Run Query</Button>
       </FlexLayout>
-    </Card>
+    </FlexLayout>
   );
 }
 
