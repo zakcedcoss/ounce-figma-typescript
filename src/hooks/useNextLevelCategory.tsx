@@ -36,9 +36,7 @@ function useNextLevelCategory(selectedCategory: CategoryType) {
   }
 
   useEffect(() => {
-    if (selectedCategory?.hasChildren) {
-      fetchCategory();
-    }
+    fetchCategory();
   }, [selectedCategory]);
 
   return { category };

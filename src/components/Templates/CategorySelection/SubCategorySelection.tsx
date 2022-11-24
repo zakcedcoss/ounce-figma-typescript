@@ -1,5 +1,5 @@
 import { Select } from "@cedcommerce/ounce-ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useNextLevelCategory from "../../../hooks/useNextLevelCategory";
 import { CategoryType } from "../../../types/types";
 
@@ -11,7 +11,9 @@ function SubCategorySelection({ selectedCategory }: CategoryProps) {
   const [categorySelection, setCategorySelection] = useState<CategoryType>();
   const { category } = useNextLevelCategory(selectedCategory);
 
-  console.log("category selection", categorySelection);
+  useEffect(() => {
+    setCategorySelection({} as CategoryType);
+  }, [category]);
 
   return (
     <>
@@ -20,7 +22,7 @@ function SubCategorySelection({ selectedCategory }: CategoryProps) {
         options={category}
         value={categorySelection?.value}
         onChange={(e, f) => {
-          setCategorySelection({ ...(f as CategoryType) });
+          setCategorySelection(f as CategoryType);
         }}
       />
       {categorySelection?.hasChildren ? (
