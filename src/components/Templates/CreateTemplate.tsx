@@ -7,7 +7,6 @@ import {
   List,
   PageFooter,
   PageHeader,
-  Select,
   Tabs,
   TextField,
   TextStyles,
