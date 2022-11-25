@@ -63,9 +63,9 @@ export interface GroupProps {
 export interface CategoryType {
   label: string;
   value: string;
-  hasChildren: boolean;
-  nextLevel: string;
-  path: string;
+  hasChildren?: boolean;
+  nextLevel?: string;
+  path?: string;
 }
 
 export interface OptionalOptionType {

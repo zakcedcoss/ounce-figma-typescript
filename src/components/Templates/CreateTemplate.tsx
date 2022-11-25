@@ -12,7 +12,7 @@ import {
   TextField,
   TextStyles,
 } from "@cedcommerce/ounce-ui";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import useProductAttributes from "../../hooks/useProductAttributes";
 import { OptionalOptionType } from "../../types/types";
 import CategorySelection from "./CategorySelection/CategorySelection";
@@ -63,13 +63,19 @@ function CreateTemplate() {
   const [reqAttribOutput, setReqAttribOutput] = useState<string[][]>(
     new Array(requiredAttribOptions.length).fill(["", ""])
   );
+  const [categoryPath, setCategoryPath] = useState<string>("");
+  //memos
+  const setCategoryPathMemo = useCallback(setCategoryPath, []);
 
   const handleSave = () => {
-    console.log({
-      templateName,
-      overrideProducts,
-      openProductGuide,
-    });
+    console.log(
+      {
+        templateName,
+        overrideProducts,
+        categoryPath,
+      },
+      "fgregdgdfg"
+    );
   };
 
   const handleOptionChange = (e: string, _: any, idx: any) => {
@@ -149,7 +155,10 @@ function CreateTemplate() {
                   onChange={(e) => setTemplateName(e)}
                 />
               </Card>
-              <CategorySelection />
+              <CategorySelection
+                setCategoryPathMemo={setCategoryPathMemo}
+                categoryPath={categoryPath}
+              />
               <Card
                 cardType="Bordered"
                 title="Required Attributes"

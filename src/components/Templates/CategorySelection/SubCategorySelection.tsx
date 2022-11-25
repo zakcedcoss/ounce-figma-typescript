@@ -14,7 +14,6 @@ function SubCategorySelection({
 }: CategoryProps) {
   const { category } = useNextLevelCategory(selectedCategory);
   const [categorySelection, setCategorySelection] = useState<CategoryType>();
-  console.log(categorySelection, "fsfsdfsdfdf");
 
   useEffect(() => {
     setCategorySelection({} as CategoryType);
@@ -27,6 +26,8 @@ function SubCategorySelection({
         options={category}
         value={categorySelection?.value}
         onChange={(e, f) => {
+          const x = { ...(f as CategoryType) };
+          setCategoryPathMemo(x?.path as string);
           setCategorySelection(f as CategoryType);
         }}
       />
