@@ -3,14 +3,18 @@ import { useCallback, useEffect, useState } from "react";
 import { GroupArrayType } from "../../../types/types";
 import Group from "./Group";
 
-function QueryBuilder() {
+interface QueryBuilderProps {
+  query: string;
+  setQueryMemo: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function QueryBuilder({ setQueryMemo, query }: QueryBuilderProps) {
   const [groupArray, setGroupArray] = useState<GroupArrayType[]>([
     {
       id: Math.floor(Math.random() * 269655698),
       rowsArray: [],
     },
   ]);
-  const [query, setQuery] = useState<string>("");
 
   const handleAddGroup = () => {
     setGroupArray((prev) => {
@@ -53,7 +57,7 @@ function QueryBuilder() {
       });
     });
 
-    setQuery(s);
+    setQueryMemo(s);
   }, [groupArray]);
 
   return (

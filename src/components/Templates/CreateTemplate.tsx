@@ -86,6 +86,7 @@ function CreateTemplate() {
   const [optAttribOutput, setOptAttribOutput] = useState<string[][]>(
     new Array(optionalAttribOptions.length).fill(["", ""])
   );
+  const [query, setQuery] = useState<string>("");
   //memos
   const setCategoryPathMemo = useCallback(setCategoryPath, [setCategoryPath]);
   const setReqAttribOutputMemo = useCallback(setReqAttribOutput, [
@@ -94,6 +95,7 @@ function CreateTemplate() {
   const setOptAttribOutputMemo = useCallback(setOptAttribOutput, [
     setOptAttribOutput,
   ]);
+  const setQueryMemo = useCallback(setQuery, [setQuery]);
 
   const handleSave = () => {
     console.log(
@@ -103,6 +105,7 @@ function CreateTemplate() {
         overrideProducts,
         categoryPath,
         reqAttribOutput,
+        query,
       },
       "fgregdgdfg"
     );
@@ -230,7 +233,7 @@ function CreateTemplate() {
                     />
                   </Card>
                 </FlexLayout>
-                <QueryBuilder />
+                <QueryBuilder setQueryMemo={setQueryMemo} query={query} />
               </Card>
             </FlexLayout>
           </Card>
