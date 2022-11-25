@@ -87,9 +87,13 @@ function CreateTemplate() {
     new Array(optionalAttribOptions.length).fill(["", ""])
   );
   //memos
-  const setCategoryPathMemo = useCallback(setCategoryPath, []);
-  const setReqAttribOutputMemo = useCallback(setReqAttribOutput, []);
-  const setOptAttribOutputMemo = useCallback(setOptAttribOutput, []);
+  const setCategoryPathMemo = useCallback(setCategoryPath, [setCategoryPath]);
+  const setReqAttribOutputMemo = useCallback(setReqAttribOutput, [
+    setReqAttribOutput,
+  ]);
+  const setOptAttribOutputMemo = useCallback(setOptAttribOutput, [
+    setOptAttribOutput,
+  ]);
 
   const handleSave = () => {
     console.log(

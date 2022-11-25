@@ -24,11 +24,11 @@ function QueryBuilder() {
     });
   };
 
-  const setGroupArrayMemo = useCallback(setGroupArray, []);
+  const setGroupArrayMemo = useCallback(setGroupArray, [setGroupArray]);
 
   useEffect(() => {
     let s: string = "";
-    groupArray?.map((g, j) => {
+    groupArray?.forEach((g, j) => {
       if (j > 0) {
         if (
           g.rowsArray.length &&
@@ -40,7 +40,7 @@ function QueryBuilder() {
         }
       }
 
-      g.rowsArray?.map((r, i) => {
+      g.rowsArray?.forEach((r, i) => {
         const { first, second, third } = r;
         if (i > 0) {
           if (first !== "" && second !== "" && third !== "") {

@@ -33,7 +33,7 @@ function Group({ groupId, setGroupArrayMemo, nGroups }: GroupProps) {
     });
   };
 
-  const setRowArrayMemo = useCallback(setRowArray, []);
+  const setRowArrayMemo = useCallback(setRowArray, [setRowArray]);
 
   useEffect(() => {
     setGroupArrayMemo((prev) => {
