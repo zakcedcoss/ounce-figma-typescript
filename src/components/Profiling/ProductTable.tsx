@@ -4,6 +4,8 @@ import {
   TextStyles,
   Skeleton,
   Pagination,
+  ToastWrapper,
+  Toast,
 } from "@cedcommerce/ounce-ui";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Table, Avatar, Switch } from "antd";
@@ -22,11 +24,22 @@ function ProductTable({
   setSelectedRow,
 }: ProductTablePropsType) {
   const [count, setCount] = useState<number>(10);
+  const { products, isLoading, error } = useProducts(page, count, filterQuery);
   const { totalCount } = useProductsCount(filterQuery);
-  const { products, isLoading } = useProducts(page, count, filterQuery);
+  console.log(error, isLoading);
 
   return (
     <div>
+      {error?.isError && (
+        <ToastWrapper>
+          <Toast
+            message={error?.message}
+            timeout={1000}
+            onDismiss={() => {}}
+            type="error"
+          />
+        </ToastWrapper>
+      )}
       <Card>
         {!isLoading && products ? (
           <Table
@@ -108,7 +121,9 @@ function ProductTable({
             }}
           />
         ) : (
-          <Skeleton line={3} rounded="0%" type="line" />
+          <>
+            <Skeleton line={3} rounded="0%" type="line" />
+          </>
         )}
       </Card>
       {products && products?.length !== 0 && (

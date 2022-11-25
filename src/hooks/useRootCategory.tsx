@@ -22,7 +22,6 @@ function useRootCategory() {
       }
     );
     const data = await resp.json();
-    console.log(data);
 
     const categories: CategoryType[] = data?.data?.map((cat: any) => {
       return {
@@ -33,7 +32,6 @@ function useRootCategory() {
         path: cat?.custom_category_path,
       };
     });
-
     setCategory(categories);
   }
 

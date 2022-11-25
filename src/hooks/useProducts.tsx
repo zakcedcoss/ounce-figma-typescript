@@ -5,6 +5,7 @@ import { ProductsType } from "../types/types";
 function useProducts(page: number, count: number, filterQuery: string) {
   const [products, setProducts] = useState<ProductsType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<{ isError: boolean; message: string }>();
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,37 +26,49 @@ function useProducts(page: number, count: number, filterQuery: string) {
     )
       .then((resp) => resp.json())
       .then((allData) => {
-        let newData = allData?.data?.rows?.map((item: any) => {
-          return {
-            key: item._id["$oid"],
-            name: item["title"],
-            sku:
-              item["source_product_id"] === item.items[0]["source_product_id"]
-                ? item.items[0].sku
-                : "NA",
-            status: item.items[0]?.status || item.items[1]?.status,
-            inventory:
-              item.type === "simple"
-                ? `${item.items[0].quantity} in stock`
-                : `${item.items.reduce((acc: number, val: any) => {
-                    if (item["source_product_id"] === val["source_product_id"])
-                      return acc + 0;
-                    return acc + val.quantity;
-                  }, 0)} of ${item.items.reduce((acc: number, val: any) => {
-                    if (item["source_product_id"] === val["source_product_id"])
-                      return acc + 0;
-                    return acc + 1;
-                  }, 0)} variant`,
-            img: item["main_image"],
-          };
-        });
-        setProducts(newData);
-        setIsLoading(false);
+        if (allData.success) {
+          const newData = allData?.data?.rows?.map((item: any) => {
+            return {
+              key: item._id["$oid"],
+              name: item["title"],
+              sku:
+                item["source_product_id"] === item.items[0]["source_product_id"]
+                  ? item.items[0].sku
+                  : "NA",
+              status: item.items[0]?.status || item.items[1]?.status,
+              inventory:
+                item.type === "simple"
+                  ? `${item.items[0].quantity} in stock`
+                  : `${item.items.reduce((acc: number, val: any) => {
+                      if (
+                        item["source_product_id"] === val["source_product_id"]
+                      )
+                        return acc + 0;
+                      return acc + val.quantity;
+                    }, 0)} of ${item.items.reduce((acc: number, val: any) => {
+                      if (
+                        item["source_product_id"] === val["source_product_id"]
+                      )
+                        return acc + 0;
+                      return acc + 1;
+                    }, 0)} variant`,
+              img: item["main_image"],
+            };
+          });
+          setError({ isError: false, message: allData.message });
+          setProducts(newData);
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+          setError({ isError: true, message: allData.message.split(":")[0] });
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }, [page, count, filterQuery]);
 
-  return { products, isLoading };
+  return { products, isLoading, error };
 }
 
 export default useProducts;

@@ -1,12 +1,14 @@
-import { Card, Select } from "@cedcommerce/ounce-ui";
-import { useState } from "react";
+import { Card, Select, Tag } from "@cedcommerce/ounce-ui";
+import { useCallback, useState } from "react";
 import useRootCategory from "../../../hooks/useRootCategory";
 import { CategoryType } from "../../../types/types";
 import SubCategorySelection from "./SubCategorySelection";
 
 function CategorySelection() {
-  const [categorySelection, setCategorySelection] = useState<CategoryType>();
   const { category } = useRootCategory();
+  const [categorySelection, setCategorySelection] = useState<CategoryType>();
+  const [categoryPath, setCategoryPath] = useState<string>("");
+  const setCategoryPathMemo = useCallback(setCategoryPath, []);
 
   return (
     <Card
@@ -14,6 +16,12 @@ function CategorySelection() {
       title="Category Selection"
       subTitle="Select a category for the product template you wish to create"
     >
+      {categoryPath && (
+        <Card>
+          <Tag>{categoryPath}</Tag>
+        </Card>
+      )}
+
       <Select
         searchEable={true}
         options={category}
@@ -24,7 +32,10 @@ function CategorySelection() {
       />
 
       {categorySelection?.hasChildren ? (
-        <SubCategorySelection selectedCategory={categorySelection} />
+        <SubCategorySelection
+          selectedCategory={categorySelection}
+          setCategoryPathMemo={setCategoryPathMemo}
+        />
       ) : (
         <></>
       )}

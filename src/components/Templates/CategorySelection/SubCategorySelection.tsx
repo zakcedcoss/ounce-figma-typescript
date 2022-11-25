@@ -5,11 +5,16 @@ import { CategoryType } from "../../../types/types";
 
 interface CategoryProps {
   selectedCategory: CategoryType;
+  setCategoryPathMemo: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SubCategorySelection({ selectedCategory }: CategoryProps) {
-  const [categorySelection, setCategorySelection] = useState<CategoryType>();
+function SubCategorySelection({
+  selectedCategory,
+  setCategoryPathMemo,
+}: CategoryProps) {
   const { category } = useNextLevelCategory(selectedCategory);
+  const [categorySelection, setCategorySelection] = useState<CategoryType>();
+  console.log(categorySelection, "fsfsdfsdfdf");
 
   useEffect(() => {
     setCategorySelection({} as CategoryType);
@@ -26,7 +31,10 @@ function SubCategorySelection({ selectedCategory }: CategoryProps) {
         }}
       />
       {categorySelection?.hasChildren ? (
-        <SubCategorySelection selectedCategory={categorySelection} />
+        <SubCategorySelection
+          selectedCategory={categorySelection}
+          setCategoryPathMemo={setCategoryPathMemo}
+        />
       ) : (
         <></>
       )}
