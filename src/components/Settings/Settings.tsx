@@ -28,7 +28,6 @@ function Settings() {
         <Tabs
           alignment="vertical"
           onChange={(e) => {
-            // console.log(e);
             setSelectedTab(e);
             navigate(`/panel/settings/${e}`);
           }}
