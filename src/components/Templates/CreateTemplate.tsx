@@ -18,6 +18,7 @@ import { OptionalOptionType } from "../../types/types";
 import CategorySelection from "./CategorySelection/CategorySelection";
 import OptionalAttributes from "./OptionalAttributes/OptionalAttributes";
 import QueryBuilder from "./QueryBuilder/QueryBuilder";
+import RequiredAttributes from "./RequiredAttributes/RequiredAttributes";
 
 function CreateTemplate() {
   const { productsAttributes } = useProductAttributes();
@@ -55,6 +56,25 @@ function CreateTemplate() {
     { label: "Brand", options: productsAttributes },
   ];
 
+  const optionalAttribOptions: OptionalOptionType[] = [
+    {
+      label: "color",
+      options: [
+        { label: "color", value: "color" },
+        { label: "size", value: "size" },
+        { label: "weight", value: "weight" },
+      ],
+    },
+    {
+      label: "Size",
+      options: [
+        { label: "color", value: "color" },
+        { label: "size", value: "size" },
+        { label: "weight", value: "weight" },
+      ],
+    },
+  ];
+
   //states
   const [selected, setSelected] = useState<string>("general");
   const [overrideProducts, setOverrideProducts] = useState<boolean>(false);
@@ -64,37 +84,25 @@ function CreateTemplate() {
     new Array(requiredAttribOptions.length).fill(["", ""])
   );
   const [categoryPath, setCategoryPath] = useState<string>("");
+  const [optAttribOutput, setOptAttribOutput] = useState<string[][]>(
+    new Array(optionalAttribOptions.length).fill(["", ""])
+  );
   //memos
   const setCategoryPathMemo = useCallback(setCategoryPath, []);
+  const setReqAttribOutputMemo = useCallback(setReqAttribOutput, []);
+  const setOptAttribOutputMemo = useCallback(setOptAttribOutput, []);
 
   const handleSave = () => {
     console.log(
       {
         templateName,
+        optAttribOutput,
         overrideProducts,
         categoryPath,
+        reqAttribOutput,
       },
       "fgregdgdfg"
     );
-  };
-
-  const handleOptionChange = (e: string, _: any, idx: any) => {
-    setReqAttribOutput((prev) => {
-      return prev.map((opt, i) => {
-        if (i === idx && e === "custom") return [e, ""];
-        else if (i === idx) return [e, e];
-        return opt;
-      });
-    });
-  };
-
-  const handleTextEnter = (e: string, idx: number) => {
-    setReqAttribOutput((prev) => {
-      return prev.map((opt, i) => {
-        if (i === idx) return [opt[0], e];
-        return opt;
-      });
-    });
   };
 
   return (
@@ -159,48 +167,14 @@ function CreateTemplate() {
                 setCategoryPathMemo={setCategoryPathMemo}
                 categoryPath={categoryPath}
               />
-              <Card
-                cardType="Bordered"
-                title="Required Attributes"
-                subTitle="Based on the category selected, you need to map Twitter attributes with Shopify attributes."
-              >
-                <Card cardType="Bordered">
-                  <FlexLayout desktopWidth="50" halign="fill" valign="center">
-                    <TextStyles alignment="left">Twitter attributes</TextStyles>
-                    <TextStyles>Shopify attributes</TextStyles>
-                  </FlexLayout>
-                </Card>
-                {requiredAttribOptions.map(
-                  (opt: OptionalOptionType, i: number) => {
-                    return (
-                      <Card cardType="Bordered" key={i}>
-                        <FlexLayout
-                          desktopWidth="50"
-                          halign="fill"
-                          valign="center"
-                        >
-                          <TextStyles alignment="left">{opt.label}</TextStyles>
-                          <FlexLayout direction="vertical">
-                            <Select
-                              value={reqAttribOutput[i][0]}
-                              options={opt.options}
-                              onChange={(e, f) => handleOptionChange(e, f, i)}
-                            />
-                            {reqAttribOutput[i][0] === "custom" && (
-                              <TextField
-                                placeHolder="Custom Value"
-                                value={reqAttribOutput[i][1]}
-                                onChange={(e) => handleTextEnter(e, i)}
-                              />
-                            )}
-                          </FlexLayout>
-                        </FlexLayout>
-                      </Card>
-                    );
-                  }
-                )}
-              </Card>
-              <OptionalAttributes />
+              <RequiredAttributes
+                reqAttribOutput={reqAttribOutput}
+                setReqAttribOutputMemo={setReqAttribOutputMemo}
+              />
+              <OptionalAttributes
+                optAttribOutput={optAttribOutput}
+                setOptAttribOutputMemo={setOptAttribOutputMemo}
+              />
               <Card
                 cardType="Bordered"
                 title="Add Products"

@@ -10,7 +10,15 @@ import { useState } from "react";
 import useProductAttributes from "../../../hooks/useProductAttributes";
 import { OptionalOptionType } from "../../../types/types";
 
-function OptionalAttributes() {
+interface OptionalAttributesProps {
+  optAttribOutput: string[][];
+  setOptAttribOutputMemo: React.Dispatch<React.SetStateAction<string[][]>>;
+}
+
+function OptionalAttributes({
+  optAttribOutput,
+  setOptAttribOutputMemo,
+}: OptionalAttributesProps) {
   const { productsAttributes } = useProductAttributes();
   const optionalAttribOptions: OptionalOptionType[] = [
     {
@@ -31,21 +39,18 @@ function OptionalAttributes() {
     },
   ];
   const [customLabels, setCustomLabels] = useState<number[]>([]);
-  const [reqAttribOutput, setReqAttribOutput] = useState<string[][]>(
-    new Array(optionalAttribOptions.length).fill(["", ""])
-  );
 
   const handleAddAttributes = () => {
     setCustomLabels((prev) => {
       return [...prev, Math.floor(Math.random() * 64564566)];
     });
-    setReqAttribOutput((prev) => {
+    setOptAttribOutputMemo((prev) => {
       return [...prev, ["", ""]];
     });
   };
 
   const handleOptionChange = (e: string, _: any, idx: any) => {
-    setReqAttribOutput((prev) => {
+    setOptAttribOutputMemo((prev) => {
       return prev.map((opt, i) => {
         if (i === idx && e === "custom") return [e, ""];
         else if (i === idx) return [e, e];
@@ -55,7 +60,7 @@ function OptionalAttributes() {
   };
 
   const handleTextEnter = (e: string, idx: number) => {
-    setReqAttribOutput((prev) => {
+    setOptAttribOutputMemo((prev) => {
       return prev.map((opt, i) => {
         if (i === idx) return [opt[0], e];
         return opt;
@@ -67,7 +72,7 @@ function OptionalAttributes() {
     setCustomLabels((prev) => {
       return prev.filter((label) => label !== id);
     });
-    setReqAttribOutput((prev) => {
+    setOptAttribOutputMemo((prev) => {
       return prev.filter((_, i) => i !== idx);
     });
   };
@@ -90,7 +95,7 @@ function OptionalAttributes() {
               <TextStyles alignment="left">{opt.label}</TextStyles>
               <Select
                 options={opt.options}
-                value={reqAttribOutput[i][1]}
+                value={optAttribOutput[i][1]}
                 onChange={(e, f) => handleOptionChange(e, f, i)}
               />
             </FlexLayout>
@@ -105,19 +110,19 @@ function OptionalAttributes() {
               <FlexLayout direction="vertical">
                 <Select
                   value={
-                    reqAttribOutput[i + optionalAttribOptions.length]?.[0] ?? ""
+                    optAttribOutput[i + optionalAttribOptions.length]?.[0] ?? ""
                   }
                   options={productsAttributes}
                   onChange={(e, f) =>
                     handleOptionChange(e, f, i + optionalAttribOptions.length)
                   }
                 />
-                {reqAttribOutput[i + optionalAttribOptions.length]?.[0] ===
+                {optAttribOutput[i + optionalAttribOptions.length]?.[0] ===
                   "custom" && (
                   <TextField
                     placeHolder="Custom Value"
                     value={
-                      reqAttribOutput[i + optionalAttribOptions.length]?.[1] ??
+                      optAttribOutput[i + optionalAttribOptions.length]?.[1] ??
                       ""
                     }
                     onChange={(e) =>
