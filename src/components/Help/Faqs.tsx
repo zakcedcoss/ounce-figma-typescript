@@ -7,174 +7,62 @@ import {
 } from "@cedcommerce/ounce-ui";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useFaqsSearch from "../../hooks/useFaqsSearch";
+import useGetAllFaqs from "../../hooks/useGetAllFaqs";
 
 function Faqs() {
-  const data = {
-    "Common Queries": [
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "How to make your Shopify Products available to the?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Is it necessary to select any plan to use the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title:
-          "Will my plan get downgraded if I will not reach the limit as per the plan I selected?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-    ],
-    "Order Section": [
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "How to make your Shopify Products to the Amazon Sales Channel?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Is it necessary to select any plan to use the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title:
-          "Will my plan get downgraded if I will not reach the limit as per the plan I selected?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "How to make your Shopify Products available ?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Is it necessary to select any plan to use the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title:
-          "Will my plan get downgraded if I will not reach the limit as per the plan I selected?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Is it necessary to select any plan to use the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title:
-          "Will my plan get downgraded if I will not reach the limit as per the plan I selected?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-    ],
-    "Product Section": [
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "How to make your Shopify Products ?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Is it necessary to select any plan to use the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title:
-          "Will my plan get downgraded if I will not reach the limit as per the plan I selected?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Is it necessary to select any plan to use the app?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title:
-          "Will my plan get downgraded if I will not reach the limit as per the plan I selected?",
-      },
-      {
-        content:
-          "Shipping products to other countries, especially those overseas, can often be... show more",
-        title: "Can we connect the Amazon pay account with the app?",
-      },
-    ],
-  };
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [enteredValue, setEnteredValue] = useState<string>("");
+  const [activePage, setActivePages] = useState<number[]>([1, 1, 1]);
+  const generalFaqs = useGetAllFaqs("general_queries");
+  const productFaqs = useGetAllFaqs("product_section");
+  const templateFaqs = useGetAllFaqs("template_section");
+  const { searchedFaqs } = useFaqsSearch(enteredValue);
+
+  const faqSection = {
+    "General Queries": generalFaqs ? generalFaqs : [],
+    "Product Section": productFaqs ? productFaqs : [],
+    "Template Section": templateFaqs ? templateFaqs : [],
+  };
+  console.log(searchedFaqs);
+
   return (
     <BodyLayout>
       <Card>
-        <Faq
-          Searchvalue={searchValue}
-          data={data}
-          description="Find Solution To All Your queries"
-          iconAlign="right"
-          onEnter={() => {
-            console.log("entering", searchValue);
-          }}
-          onSearch={(e) => {
-            console.log(e);
-            setSearchValue(e);
-          }}
-          onClick={() => navigate("/panel/help", { replace: true })}
-          options={data}
-          reverseNavigation
-          title="FAQ"
-        />
+        {enteredValue === "" ? (
+          <Faq
+            options={faqSection}
+            count={2}
+            data={faqSection}
+            Searchvalue={searchValue}
+            description="Find Solution To All Your queries"
+            iconAlign="right"
+            onEnter={(e) => {
+              setEnteredValue(e);
+            }}
+            onSearch={(e) => setSearchValue(e)}
+            onClick={() => navigate("/panel/help", { replace: true })}
+            reverseNavigation
+            title="FAQ"
+          />
+        ) : (
+          <Faq
+            options={{ "Search Result": searchedFaqs ?? [] }}
+            count={2}
+            data={{ "Search Result": searchedFaqs ?? [] }}
+            Searchvalue={searchValue}
+            description="Find Solution To All Your queries"
+            iconAlign="right"
+            onEnter={(e) => {
+              setEnteredValue(e);
+            }}
+            onSearch={(e) => setSearchValue(e)}
+            onClick={() => navigate("/panel/help", { replace: true })}
+            reverseNavigation
+            title="FAQ"
+          />
+        )}
       </Card>
       <PageFooter>
         <TextStyles>Cedcommerce @ 2022</TextStyles>
