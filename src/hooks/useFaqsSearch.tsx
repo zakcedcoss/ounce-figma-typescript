@@ -9,7 +9,7 @@ function useFaqsSearch(value: string) {
     myHeaders.append("Cookie", "PHPSESSID=qfpnipu69set2cr7juc88bqaik");
 
     fetch(
-      `https://multi-account.sellernext.com/home/public/twitter/faq/search?target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9&activePage=1&pageSize=2&query=${value}`,
+      `https://multi-account.sellernext.com/home/public/twitter/faq/search?target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9&activePage=1&pageSize=10&query=${value}`,
       {
         method: "GET",
         headers: myHeaders,

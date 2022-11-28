@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { TOKEN } from "../Environments";
 
-function useGetAllFaqs(section: string) {
+function useGetAllFaqs(section: string, pageSize: number) {
   const [faqs, setFaqs] = useState<any>();
+  const [totalCount, setTotalCount] = useState<number>(0);
 
   const getAllFaqs = (section: string) => {
     const myHeaders = new Headers();
@@ -10,7 +11,7 @@ function useGetAllFaqs(section: string) {
     myHeaders.append("Cookie", "PHPSESSID=qfpnipu69set2cr7juc88bqaik");
 
     fetch(
-      `https://multi-account.sellernext.com/home/public/twitter/faq/getAllFaqForCustomer?target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9&activePage=1&pageSize=2&section_code=${section}`,
+      `https://multi-account.sellernext.com/home/public/twitter/faq/getAllFaqForCustomer?target_marketplace=eyJtYXJrZXRwbGFjZSI6ImFsbCIsInNob3BfaWQiOm51bGx9&activePage=1&pageSize=${pageSize}&section_code=${section}`,
       {
         method: "GET",
         headers: myHeaders,
@@ -24,6 +25,7 @@ function useGetAllFaqs(section: string) {
             return { title: faq.question, content: faq.answer };
           });
           setFaqs(newFaqs);
+          setTotalCount(data?.response[section]?.count);
         }
       })
       .catch(console.log);
@@ -31,9 +33,9 @@ function useGetAllFaqs(section: string) {
 
   useEffect(() => {
     getAllFaqs(section);
-  }, []);
+  }, [pageSize]);
 
-  return faqs;
+  return { faqs, totalCount };
 }
 
 export default useGetAllFaqs;
