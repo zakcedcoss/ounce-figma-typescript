@@ -3,7 +3,9 @@ import { TOKEN } from "../Environments";
 
 function useFaqsSearch(value: string) {
   const [searchedFaqs, setSearchedFaqs] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const getSearchFaqs = (value: string) => {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${TOKEN}`);
     myHeaders.append("Cookie", "PHPSESSID=qfpnipu69set2cr7juc88bqaik");
@@ -23,6 +25,7 @@ function useFaqsSearch(value: string) {
             return { title: faq.question, content: faq.answer };
           });
           setSearchedFaqs(newFaqs);
+          setIsLoading(false);
         }
       })
       .catch((error) => console.log("error", error));
@@ -34,7 +37,7 @@ function useFaqsSearch(value: string) {
     }
   }, [value]);
 
-  return { searchedFaqs };
+  return { searchedFaqs, isLoading };
 }
 
 export default useFaqsSearch;

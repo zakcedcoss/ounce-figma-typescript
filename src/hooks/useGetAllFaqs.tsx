@@ -4,8 +4,10 @@ import { TOKEN } from "../Environments";
 function useGetAllFaqs(section: string, pageSize: number) {
   const [faqs, setFaqs] = useState<any>();
   const [totalCount, setTotalCount] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getAllFaqs = (section: string) => {
+    setIsLoading(true);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${TOKEN}`);
     myHeaders.append("Cookie", "PHPSESSID=qfpnipu69set2cr7juc88bqaik");
@@ -26,6 +28,7 @@ function useGetAllFaqs(section: string, pageSize: number) {
           });
           setFaqs(newFaqs);
           setTotalCount(data?.response[section]?.count);
+          setIsLoading(false);
         }
       })
       .catch(console.log);
@@ -35,7 +38,7 @@ function useGetAllFaqs(section: string, pageSize: number) {
     getAllFaqs(section);
   }, [pageSize]);
 
-  return { faqs, totalCount };
+  return { faqs, totalCount, isLoading };
 }
 
 export default useGetAllFaqs;
