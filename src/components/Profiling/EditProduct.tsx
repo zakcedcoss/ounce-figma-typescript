@@ -39,7 +39,7 @@ function EditProduct() {
 
   return (
     <BodyLayout>
-      <PageHeader title={`Edit Products Details ${id}`} />
+      <PageHeader title={`Edit Products Details`} />
       <Card>
         <FlexLayout direction="vertical" spacing="loose">
           <TextField
