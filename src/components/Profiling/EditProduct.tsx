@@ -12,28 +12,42 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useSingleProduct from "../../hooks/useSingleProduct";
-import { SingleProductType } from "../../types/types";
+import { SingleProductType, VariantsType } from "../../types/types";
 
 function EditProduct() {
   const { id } = useParams();
-  const { product } = useSingleProduct(id);
+  const { product, variants } = useSingleProduct(id);
   const [editedProduct, setEditedProduct] = useState<SingleProductType>(
     {} as SingleProductType
   );
-  //   console.log(editedProduct, "editedProduct");
+  const [editedVariant, setEditedVariant] = useState<VariantsType[]>();
+  //   console.log({ editedProduct, editedVariant }, "editedProduct");
 
   useEffect(() => {
     if (product) {
       setEditedProduct(product[0]);
+      setEditedVariant(variants);
     }
   }, [product]);
 
-  const handleEditProducts = (value: string, name: string) => {
+  const handleEditProducts = (value: string | number, name: string) => {
     setEditedProduct((prev) => {
-      if (name === "tags") {
-        return { ...prev, tags: value.split(",") };
-      }
       return { ...prev, [name]: value };
+    });
+  };
+
+  const handleEditedVariants = (
+    value: string | number,
+    name: string,
+    index: number
+  ) => {
+    setEditedVariant((prev) => {
+      return prev?.map((vrnt, i) => {
+        if (i === index) {
+          return { ...vrnt, [name]: value };
+        }
+        return vrnt;
+      });
     });
   };
 
@@ -58,7 +72,7 @@ function EditProduct() {
                 name="Price"
                 type="number"
                 value={editedProduct?.price}
-                onChange={(e) => handleEditProducts(e, "price")}
+                onChange={(e) => handleEditProducts(+e, "price")}
               />
             )}
             {editedProduct?.quantity !== undefined && (
@@ -66,12 +80,12 @@ function EditProduct() {
                 name="Quantity"
                 type="number"
                 value={editedProduct?.quantity}
-                onChange={(e) => handleEditProducts(e, "quantity")}
+                onChange={(e) => handleEditProducts(+e, "quantity")}
               />
             )}
           </FlexLayout>
           <TextField
-            name="Image Url"
+            name="Main Image Url"
             value={editedProduct?.image}
             onChange={(e) => handleEditProducts(e, "image")}
           />
@@ -103,17 +117,51 @@ function EditProduct() {
           <TextField
             name="Tags"
             showHelp="Enter tags separated by comma"
-            value={
-              Array.isArray(editedProduct?.tags)
-                ? editedProduct?.tags.join(",")
-                : editedProduct?.tags
-            }
+            value={editedProduct?.tags}
             onChange={(e) => {
               handleEditProducts(e, "tags");
             }}
           />
+          {editedVariant?.map((variant, idx: number) => {
+            return (
+              <FlexLayout direction="vertical" spacing="loose">
+                <TextStyles>
+                  Variant: {variant.attributes[0].key}--
+                  {variant.attributes[0].value}
+                </TextStyles>
+                <FlexLayout
+                  halign="fill"
+                  spacing="loose"
+                  childWidth="fullWidth"
+                >
+                  <TextField
+                    name="Price"
+                    type="number"
+                    value={variant.price}
+                    onChange={(e) => handleEditedVariants(+e, "price", idx)}
+                  />
+                  <TextField
+                    name="Quantity"
+                    type="number"
+                    value={variant.quantity}
+                    onChange={(e) => handleEditedVariants(+e, "quantity", idx)}
+                  />
+                </FlexLayout>
+                <TextField
+                  name="Variant Image Url"
+                  value={variant.image}
+                  onChange={(e) => handleEditedVariants(e, "image", idx)}
+                />
+              </FlexLayout>
+            );
+          })}
           <FlexLayout spacing="loose" halign="end">
-            <Button type="Primary" onClick={() => console.log(editedProduct)}>
+            <Button
+              type="Primary"
+              onClick={() =>
+                console.log({ ...editedProduct, variants: editedVariant })
+              }
+            >
               Save
             </Button>
           </FlexLayout>

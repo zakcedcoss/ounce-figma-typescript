@@ -82,10 +82,15 @@ export interface SingleProductType {
   sku: string;
   price: number;
   quantity: number;
-  tags: string[];
+  tags: string;
   type: string;
   source_product_id: string;
   visibility: string;
-  variant_attributes: string[];
-  variant_attributes_values: { [key: string]: string[] };
+}
+
+export interface VariantsType {
+  attributes: any;
+  price: number;
+  quantity: number;
+  image: string;
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { TOKEN } from "../Environments";
-import { SingleProductType } from "../types/types";
+import { SingleProductType, VariantsType } from "../types/types";
 
 function useSingleProduct(container_id: string | undefined) {
   const [product, setProduct] = useState<SingleProductType[]>();
+  const [variants, setVariants] = useState<VariantsType[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<{ isError: boolean; message: string }>();
 
@@ -29,6 +30,22 @@ function useSingleProduct(container_id: string | undefined) {
         // console.log(allData, "dfdfdf4df");
 
         if (allData.success) {
+          const variants = allData.data.rows
+            .filter((data: any) => {
+              return (
+                data.type !== "variant" &&
+                data.visibility !== "Catalog and Search"
+              );
+            })
+            .map((data: any) => {
+              return {
+                attributes: data.variant_attributes,
+                price: data.price,
+                quantity: data.quantity,
+                image: data.variant_image,
+              };
+            });
+
           const newData = allData.data.rows.map((data: any) => {
             return {
               container_id: data.container_id,
@@ -42,13 +59,11 @@ function useSingleProduct(container_id: string | undefined) {
               type: data.type,
               source_product_id: data.source_product_id,
               visibility: data.visibility,
-              variant_attributes: data.variant_attributes,
-              variant_attributes_values: data.variant_attributes_values,
-              variant_image: data.variant_image,
             };
           });
           setError({ isError: false, message: allData.message });
           setProduct(newData);
+          setVariants(variants);
           setIsLoading(false);
         } else {
           setIsLoading(false);
@@ -66,7 +81,7 @@ function useSingleProduct(container_id: string | undefined) {
     }
   }, [container_id]);
 
-  return { product, isLoading, error };
+  return { product, variants, isLoading, error };
 }
 
 export default useSingleProduct;
