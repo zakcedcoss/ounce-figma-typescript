@@ -49,7 +49,7 @@ function EditProduct() {
             onChange={(e) => handleEditProducts(e, "description")}
           />
           <FlexLayout halign="fill" spacing="loose" childWidth="fullWidth">
-            {editedProduct?.price && (
+            {editedProduct?.price !== undefined && (
               <TextField
                 name="Price"
                 type="number"
@@ -57,7 +57,7 @@ function EditProduct() {
                 onChange={(e) => handleEditProducts(e, "price")}
               />
             )}
-            {editedProduct?.quantity && (
+            {editedProduct?.quantity !== undefined && (
               <TextField
                 name="Quantity"
                 type="number"
