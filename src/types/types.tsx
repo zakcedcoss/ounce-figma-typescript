@@ -82,7 +82,7 @@ export interface SingleProductType {
   sku: string;
   price: number;
   quantity: number;
-  tags: string;
+  tags: string[];
   type: string;
   source_product_id: string;
   visibility: string;

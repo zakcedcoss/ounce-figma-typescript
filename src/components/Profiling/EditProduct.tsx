@@ -6,6 +6,7 @@ import {
   PageHeader,
   Tag,
   TextField,
+  TextStyles,
 } from "@cedcommerce/ounce-ui";
 
 import { useEffect, useState } from "react";
@@ -29,6 +30,9 @@ function EditProduct() {
 
   const handleEditProducts = (value: string, name: string) => {
     setEditedProduct((prev) => {
+      if (name === "tags") {
+        return { ...prev, tags: value.split(",") };
+      }
       return { ...prev, [name]: value };
     });
   };
@@ -98,26 +102,16 @@ function EditProduct() {
           </FlexLayout>
           <TextField
             name="Tags"
-            value={editedProduct?.tags}
+            showHelp="Enter tags separated by comma"
+            value={
+              Array.isArray(editedProduct?.tags)
+                ? editedProduct?.tags.join(",")
+                : editedProduct?.tags
+            }
             onChange={(e) => {
               handleEditProducts(e, "tags");
             }}
           />
-          {editedProduct.type === "variation" && (
-            <>
-              <FlexLayout direction="vertical">
-                <TextField
-                  name="Variant Attributes"
-                  value={JSON.stringify(editedProduct?.variant_attributes)}
-                />
-                <FlexLayout>
-                  {editedProduct?.variant_attributes.map((attrib) => {
-                    return <Tag destroy={() => {}}>{attrib}</Tag>;
-                  })}
-                </FlexLayout>
-              </FlexLayout>
-            </>
-          )}
           <FlexLayout spacing="loose" halign="end">
             <Button type="Primary" onClick={() => console.log(editedProduct)}>
               Save
