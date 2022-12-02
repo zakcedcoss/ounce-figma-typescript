@@ -14,6 +14,7 @@ import CreateTemplate from "./components/Templates/CreateTemplate";
 const Home = lazy(() => import("./pages/Home"));
 const Layout = lazy(() => import("./Layout/index"));
 const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
+const EditProduct = lazy(() => import("./components/Profiling/EditProduct"));
 const Profiling = lazy(() => import("./components/Profiling/Profiling"));
 const Templates = lazy(() => import("./components/Templates/Templates"));
 const Settings = lazy(() => import("./components/Settings/Settings"));
@@ -31,6 +32,7 @@ function App() {
           <Route path="/panel" element={<Layout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profiling" element={<Profiling />} />
+            <Route path="profiling/edit/:id" element={<EditProduct />} />
             <Route path="templates" element={<Templates />} />
             <Route
               path="templates/create-templates"

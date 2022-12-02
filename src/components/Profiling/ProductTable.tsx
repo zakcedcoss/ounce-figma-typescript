@@ -6,8 +6,9 @@ import {
   Pagination,
   ToastWrapper,
   Toast,
+  Button,
 } from "@cedcommerce/ounce-ui";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined, EditTwoTone } from "@ant-design/icons";
 import { Table, Avatar, Switch } from "antd";
 import { useState } from "react";
 //types
@@ -15,6 +16,7 @@ import { ProductTablePropsType, ProductsType } from "../../types/types";
 //custom hooks
 import useProducts from "../../hooks/useProducts";
 import useProductsCount from "../../hooks/useProductsCount";
+import { useNavigate } from "react-router-dom";
 
 function ProductTable({
   page,
@@ -26,7 +28,7 @@ function ProductTable({
   const [count, setCount] = useState<number>(10);
   const { products, isLoading, error } = useProducts(page, count, filterQuery);
   const { totalCount } = useProductsCount(filterQuery);
-  console.log(error, isLoading);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -81,7 +83,7 @@ function ProductTable({
                 width: 200,
               },
               {
-                align: "left",
+                align: "center",
                 dataIndex: "offerprime",
                 key: "offerprime",
                 title: "Offer Prime",
@@ -99,6 +101,32 @@ function ProductTable({
                         onChange={(e: boolean) => console.log(e, record.key)}
                       />
                       <TextStyles>{record.inventory}</TextStyles>
+                    </FlexLayout>
+                  );
+                },
+              },
+              {
+                align: "center",
+                dataIndex: "edit",
+                key: "edit",
+                title: "Edit Products",
+                width: 150,
+                render: (_, record: ProductsType) => {
+                  return (
+                    <FlexLayout
+                      direction="vertical"
+                      halign="start"
+                      valign="center"
+                    >
+                      <Button
+                        type="Plain"
+                        icon={<EditTwoTone />}
+                        onClick={() => {
+                          navigate(
+                            `/panel/profiling/edit/${record?.container_id}`
+                          );
+                        }}
+                      />
                     </FlexLayout>
                   );
                 },

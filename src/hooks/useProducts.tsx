@@ -53,6 +53,7 @@ function useProducts(page: number, count: number, filterQuery: string) {
                       return acc + 1;
                     }, 0)} variant`,
               img: item["main_image"],
+              container_id: item.container_id,
             };
           });
           setError({ isError: false, message: allData.message });

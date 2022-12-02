@@ -15,6 +15,7 @@ export interface ProductsType {
   status: string;
   inventory: string;
   img: string;
+  container_id: string;
 }
 
 export interface RowType {
@@ -71,4 +72,20 @@ export interface CategoryType {
 export interface OptionalOptionType {
   label: string;
   options: any;
+}
+
+export interface SingleProductType {
+  container_id: string;
+  description: string;
+  image: string;
+  title: string;
+  sku: string;
+  price: number;
+  quantity: number;
+  tags: string;
+  type: string;
+  source_product_id: string;
+  visibility: string;
+  variant_attributes: string[];
+  variant_attributes_values: { [key: string]: string[] };
 }
