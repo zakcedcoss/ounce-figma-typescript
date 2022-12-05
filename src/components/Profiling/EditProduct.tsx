@@ -15,7 +15,7 @@ import { useParams } from "react-router-dom";
 import useSingleProduct from "../../hooks/useSingleProduct";
 import { SingleProductType, VariantsType } from "../../types/types";
 
-interface VariantErrorType {
+interface ErrorType {
   [key: string]: boolean;
 }
 
@@ -26,14 +26,14 @@ function EditProduct() {
     {} as SingleProductType
   );
   const [editedVariant, setEditedVariant] = useState<VariantsType[]>();
-  const [productError, setProductError] =
-    useState<{ [key: string]: boolean }>();
-  const [variantError, setVariantError] = useState<VariantErrorType[]>();
+  // errors
+  const [productError, setProductError] = useState<ErrorType>();
+  const [variantError, setVariantError] = useState<ErrorType[]>();
   const [globalError, setGlobalError] = useState<boolean>(false);
 
   useEffect(() => {
-    let errorObject = {};
-    let variantArray: VariantErrorType[] = [];
+    let errorObject: ErrorType = {};
+    let variantArray: ErrorType[] = [];
     if (product) {
       Object.keys(product[0]).forEach((product) => {
         errorObject = { ...errorObject, [product]: false };
