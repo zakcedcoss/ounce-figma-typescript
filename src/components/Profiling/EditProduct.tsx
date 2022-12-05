@@ -128,13 +128,13 @@ function EditProduct() {
           <TextField
             error={productError?.title}
             name="Title"
-            value={editedProduct?.title}
+            value={editedProduct?.title ?? ""}
             onChange={(e) => handleEditProducts(e, "title")}
           />
           <TextField
             error={productError?.description}
             name="Description"
-            value={editedProduct?.description}
+            value={editedProduct?.description ?? ""}
             onChange={(e) => handleEditProducts(e, "description")}
           />
           <FlexLayout halign="fill" spacing="loose" childWidth="fullWidth">
@@ -143,7 +143,7 @@ function EditProduct() {
                 error={productError?.price}
                 name="Price"
                 type="number"
-                value={editedProduct?.price}
+                value={editedProduct?.price ?? 0}
                 onChange={(e) => handleEditProducts(e, "price")}
               />
             )}
@@ -152,7 +152,7 @@ function EditProduct() {
                 error={productError?.quantity}
                 name="Quantity"
                 type="number"
-                value={editedProduct?.quantity}
+                value={editedProduct?.quantity ?? 0}
                 onChange={(e) => handleEditProducts(e, "quantity")}
               />
             )}
@@ -160,20 +160,20 @@ function EditProduct() {
           <TextField
             error={productError?.image}
             name="Main Image Url"
-            value={editedProduct?.image}
+            value={editedProduct?.image ?? ""}
             onChange={(e) => handleEditProducts(e, "image")}
           />
           <FlexLayout halign="fill" spacing="loose" childWidth="fullWidth">
             <TextField
               error={productError?.type}
               name="Type"
-              value={editedProduct?.type}
+              value={editedProduct?.type ?? ""}
               onChange={(e) => handleEditProducts(e, "type")}
             />
             <TextField
               error={productError?.visibility}
               name="Visibility"
-              value={editedProduct?.visibility}
+              value={editedProduct?.visibility ?? ""}
               onChange={(e) => handleEditProducts(e, "visibility")}
             />
           </FlexLayout>
@@ -181,14 +181,14 @@ function EditProduct() {
             <TextField
               error={productError?.sku}
               name="SKU"
-              value={editedProduct?.sku}
+              value={editedProduct?.sku ?? ""}
               onChange={(e) => handleEditProducts(e, "sku")}
             />
             <TextField
               error={productError?.source_product_id}
               name="Source Product ID"
               type="number"
-              value={editedProduct?.source_product_id}
+              value={editedProduct?.source_product_id ?? ""}
               onChange={(e) => handleEditProducts(e, "source_product_id")}
             />
           </FlexLayout>
@@ -196,7 +196,7 @@ function EditProduct() {
             error={productError?.tags}
             name="Tags"
             showHelp="Enter tags separated by comma"
-            value={editedProduct?.tags}
+            value={editedProduct?.tags ?? ""}
             onChange={(e) => {
               handleEditProducts(e, "tags");
             }}
@@ -217,21 +217,21 @@ function EditProduct() {
                     error={variantError?.[idx]?.price ?? false}
                     name="Price"
                     type="number"
-                    value={variant.price}
+                    value={variant.price ?? 0}
                     onChange={(e) => handleEditedVariants(e, "price", idx)}
                   />
                   <TextField
                     error={variantError?.[idx]?.quantity ?? false}
                     name="Quantity"
                     type="number"
-                    value={variant.quantity}
+                    value={variant.quantity ?? 0}
                     onChange={(e) => handleEditedVariants(e, "quantity", idx)}
                   />
                 </FlexLayout>
                 <TextField
                   error={variantError?.[idx]?.image ?? false}
                   name="Variant Image Url"
-                  value={variant.image}
+                  value={variant.image ?? ""}
                   onChange={(e) => handleEditedVariants(e, "image", idx)}
                 />
               </FlexLayout>
