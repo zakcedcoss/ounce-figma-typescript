@@ -27,8 +27,6 @@ function useSingleProduct(container_id: string | undefined) {
     )
       .then((resp) => resp.json())
       .then((allData) => {
-        // console.log(allData, "dfdfdf4df");
-
         if (allData.success) {
           const variants = allData.data.rows
             .filter((data: any) => {
